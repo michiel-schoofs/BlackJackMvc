@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using BlackJackMVC.Extensions;
 using Newtonsoft.Json;
 
 namespace BlackJackMVC.Models {
@@ -22,7 +23,7 @@ namespace BlackJackMVC.Models {
                 }
             }
 
-            Shuffle();
+            _cards = _cards.Shuffle();
         }
 
         [JsonConstructor]
@@ -41,18 +42,6 @@ namespace BlackJackMVC.Models {
             return card;
         }
 
-        private void Shuffle() {
-            List<BlackJackCard> shuffled = new List<BlackJackCard>();
-            int rand;
-
-            while (_cards.Count != 0) {
-                rand = _random.Next(0, _cards.Count);
-                shuffled.Add(_cards[rand]);
-                _cards.RemoveAt(rand);
-            }
-
-            _cards = shuffled;
-        } 
         #endregion
     }
 }
