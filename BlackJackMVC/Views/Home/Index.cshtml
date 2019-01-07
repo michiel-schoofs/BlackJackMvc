@@ -1,0 +1,45 @@
+﻿@model BlackJackMVC.Models.BlackJack;
+@{
+    ViewData["Title"] = "Index";
+}
+<link href="~/css/BJ.css" rel="stylesheet" />
+<div id="playGround">
+    <h1>@(Model.GameSummary()??"Next...")</h1>
+
+    <p class="hand">
+        @{
+            foreach (BlackJackMVC.Models.BlackJackCard card in Model.DealerHand.Cards) {
+                if (!card.FaceUp) {
+                    <img src = "/images/kaartback.gif" />
+                }
+                else {
+                    int suit = (int)card.Suit; // de waarde uit enum types, voor harten is dit 1
+                    int value = (int)card.FaceValue; //1 voor de ace bvb.
+                    int kaartnummer = ((suit - 1) * 13) + value - 1;
+                    <img src="~/images/kaart@(kaartnummer).gif" />
+                }
+            }
+        }
+        <span class="total">Dealer Total: @Model.DealerHand.Value</span>
+    </p>
+
+    <p class="hand">
+        @{
+            foreach (BlackJackMVC.Models.BlackJackCard card in Model.PlayerHand.Cards) {
+                if (!card.FaceUp) {
+                    <img src="/images/kaartback.gif" />
+                }
+                else {
+                    int suit = (int)card.Suit; // de waarde uit enum types, voor harten is dit 1
+                    int value = (int)card.FaceValue; //1 voor de ace bvb.
+                    int kaartnummer = ((suit - 1) * 13) + value - 1;
+                    <img src="~/images/kaart@(kaartnummer).gif" />
+                }
+            }
+        }
+        <span class="total">Player Total: @Model.PlayerHand.Value</span>
+    </p>
+
+    <a asp-controller="Home" asp-action="NextCard">Next Card</a>
+    <a asp-controller="Home" asp-action="Pass">Pass</a>
+</div>
