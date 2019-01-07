@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Newtonsoft.Json;
 
 namespace BlackJackMVC.Models {
+    [JsonObject(MemberSerialization.OptIn)]
     public class Card {
         #region Properties
+        [JsonProperty]
         public FaceValue FaceValue { get; private set; }
+        [JsonProperty]
         public Suit Suit { get; private set; } 
         #endregion
 

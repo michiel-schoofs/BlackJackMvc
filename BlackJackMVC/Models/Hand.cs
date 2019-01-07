@@ -1,15 +1,17 @@
-﻿using System;
+﻿using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Text;
 
 namespace BlackJackMVC.Models {
+    [JsonObject(MemberSerialization.OptIn)]
     public class Hand {
         #region Field
+        [JsonProperty]
         private IList<BlackJackCard> _cards;
         #endregion
 
         #region Properties
-        public IEnumerable<BlackJackCard> Cards { get { return _cards; } }
+
+        public IEnumerable<BlackJackCard> Cards { get { return _cards; }}
         public int NrOfCards { get => _cards.Count; }
         public int Value { get => CalculateValue(); }
         #endregion

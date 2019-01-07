@@ -4,13 +4,13 @@
 }
 <link href="~/css/BJ.css" rel="stylesheet" />
 <div id="playGround">
-    <h1>@(Model.GameSummary()??"Next...")</h1>
+    <h1>@(Model.GameSummary() ?? "Next...")</h1>
 
     <p class="hand">
         @{
             foreach (BlackJackMVC.Models.BlackJackCard card in Model.DealerHand.Cards) {
                 if (!card.FaceUp) {
-                    <img src = "/images/kaartback.gif" />
+                    <img src="/images/kaartback.gif" />
                 }
                 else {
                     int suit = (int)card.Suit; // de waarde uit enum types, voor harten is dit 1
@@ -40,6 +40,12 @@
         <span class="total">Player Total: @Model.PlayerHand.Value</span>
     </p>
 
-    <a asp-controller="Home" asp-action="NextCard">Next Card</a>
-    <a asp-controller="Home" asp-action="Pass">Pass</a>
+    @{
+        if (Model.GameState == BlackJackMVC.Models.GameState.PlayerPlays) {
+            <a asp-controller="Home" asp-action="NextCard">Next Card</a>
+            <a asp-controller="Home" asp-action="Pass">Pass</a>
+        }else {
+            <a asp-controller="Home" asp-action="Index">New Game</a>
+        }
+    }
 </div>

@@ -1,18 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using Newtonsoft.Json;
 
 namespace BlackJackMVC.Models {
+    [JsonObject(MemberSerialization.OptIn)]
     public class BlackJack {
         #region Fields
         public const bool FaceDown = false;
         public const bool FaceUp = true;
-        private Deck _deck;
+        [JsonProperty]
+        public Deck _deck;
         #endregion
 
         #region Properties
+        [JsonProperty]
         public Hand DealerHand { get; set; } = new Hand();
+        [JsonProperty]
         public Hand PlayerHand { get; set; } = new Hand();
+        [JsonProperty]
         public GameState GameState { get; private set; } = GameState.PlayerPlays;
         #endregion
 
@@ -23,6 +27,11 @@ namespace BlackJackMVC.Models {
             _deck = deck;
             Deal();
             AdjustGameState(GameState);
+        }
+
+        [JsonConstructor]
+        public BlackJack(bool test) {
+
         }
         #endregion
 

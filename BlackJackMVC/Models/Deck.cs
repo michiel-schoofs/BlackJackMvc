@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using Newtonsoft.Json;
 
 namespace BlackJackMVC.Models {
+    [JsonObject(MemberSerialization.OptIn)]
     public class Deck {
         #region Fields
         private Random _random;
+        [JsonProperty]
         protected IList<BlackJackCard> _cards;
         #endregion
 
@@ -21,6 +23,11 @@ namespace BlackJackMVC.Models {
             }
 
             Shuffle();
+        }
+
+        [JsonConstructor]
+        public Deck(bool test) {
+
         }
         #endregion
 
